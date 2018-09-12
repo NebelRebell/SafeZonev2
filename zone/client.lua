@@ -7,11 +7,12 @@
 ------------        Goto LINE 130 to edit the Marker( Holographic circle.)               ---------------------
 --------------------------------------------------------------------------------------------------------------
 -- Place your own coords here!
+-- Don't forget your notorious common comma, GreetZ!
 local zones = {
-	{ ['x'] = 1847.916015625, ['y'] = 3675.8190917968, ['z'] = 33.767009735108},
-	{ ['x'] = -1688.43811035156, ['y'] = -1073.62536621094, ['z'] = 13.1521873474121 },
-	{ ['x'] = -2195.1352539063, ['y'] = 4288.7290039063, ['z'] = 49.173923492432 }
-}
+	{ ['x'] = 1847.92, 	['y'] = 3675.82, 	['z'] = 33.77},		--County Sheriff Sandy Shores
+	{ ['x'] = -1688.44, 	['y'] = -1073.63, 	['z'] = 13.15},		--Slotmashine Pier
+	{ ['x'] = -2195.14, 	['y'] = 4288.73, 	['z'] = 49.17}		--Slotmashine
+} 
 
 local notifIn = false
 local notifOut = false
@@ -90,7 +91,8 @@ Citizen.CreateThread(function()
 				ClearPlayerWantedLevel(PlayerId())
 				SetCurrentPedWeapon(player,GetHashKey("WEAPON_UNARMED"),true)
 				TriggerEvent("pNotify:SendNotification",{
-					text = "<b style='color:#1E90FF'>You are in a SafeZone</b>",
+					text = "<b style='color:#1E90FF'>You are in a SafeZone</b>", 	--EN
+					--text = "<b style='color:#1E90FF'>Du befindest Dich in einer SAFEZONE!</b>",	--DE
 					type = "success",
 					timeout = (3000),
 					layout = "bottomcenter",
@@ -103,7 +105,8 @@ Citizen.CreateThread(function()
 			if not notifOut then
 				NetworkSetFriendlyFireOption(true)
 				TriggerEvent("pNotify:SendNotification",{
-					text = "<b style='color:#1E90FF'>You are in NO LONGER a SafeZone</b>",
+					text = "<b style='color:#1E90FF'>You are in NO LONGER a SafeZone</b>",		--EN
+					--text = "<b style='color:#1E90FF'>Du hast die SAFEZONE verlassen!</b>",	--DE
 					type = "error",
 					timeout = (3000),
 					layout = "bottomcenter",
@@ -120,7 +123,8 @@ Citizen.CreateThread(function()
 			if IsDisabledControlJustPressed(2, 37) then --if Tab is pressed, send error message
 				SetCurrentPedWeapon(player,GetHashKey("WEAPON_UNARMED"),true) -- if tab is pressed it will set them to unarmed (this is to cover the vehicle glitch until I sort that all out)
 				TriggerEvent("pNotify:SendNotification",{
-					text = "<b style='color:#1E90FF'>You can not use weapons in a Safe Zone</b>",
+					text = "<b style='color:#1E90FF'>You can not use weapons in a Safe Zone</b>",				--EN
+					--text = "<b style='color:#1E90FF'>Du kannst keine Waffen in der SAFEZONE benutzen!</b>",	--DE
 					type = "error",
 					timeout = (3000),
 					layout = "bottomcenter",
@@ -131,6 +135,7 @@ Citizen.CreateThread(function()
 				SetCurrentPedWeapon(player,GetHashKey("WEAPON_UNARMED"),true) -- If they click it will set them to unarmed
 				TriggerEvent("pNotify:SendNotification",{
 					text = "<b style='color:#1E90FF'>You can not do that in a Safe Zone</b>",
+					--text = "<b style='color:#1E90FF'>Du kast diese Aktion in keiner SAFEZONE ausführen!</b>",
 					type = "error",
 					timeout = (3000),
 					layout = "bottomcenter",
@@ -138,7 +143,7 @@ Citizen.CreateThread(function()
 				})
 			end
 		end
-		-- Comment out lines 142 - 145 if you dont want a marker.
+		-- Comment out lines 147 ("DrawMarker(1,..." if you don't want to see the marker
 	 	if DoesEntityExist(player) then	      --The -1.0001 will place it on the ground flush		-- SIZING CIRCLE |  x    y    z | R   G    B   alpha| *more alpha more transparent*
 	 		DrawMarker(1, zones[closestZone].x, zones[closestZone].y, zones[closestZone].z-1.0001, 0, 0, 0, 0, 0, 0, 100.0, 100.0, 2.0, 13, 232, 255, 155, 0, 0, 2, 0, 0, 0, 0) -- heres what all these numbers are. Honestly you dont really need to mess with any other than what isnt 0.
 	 		--DrawMarker(type, float posX, float posY, float posZ, float dirX, float dirY, float dirZ, float rotX, float rotY, float rotZ, float scaleX, float scaleY, float scaleZ, int red, int green, int blue, int alpha, BOOL bobUpAndDown, BOOL faceCamera, int p19(LEAVE AS 2), BOOL rotate, char* textureDict, char* textureName, BOOL drawOnEnts)
